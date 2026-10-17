@@ -4,7 +4,7 @@ RESTful API for the RaceDay system, built with ASP.NET Core Web API (.NET 10), E
 
 ## Green Build
 
-![Green build](docs/green-build.png)
+![Green build](CI%20SCREENSHOT.png)
 
 ## Features
 
