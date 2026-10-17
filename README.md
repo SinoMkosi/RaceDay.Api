@@ -1,82 +1,38 @@
 # RaceDay API
 
-RaceDay API is a .NET Web API project built with C# and ASP.NET Core. It uses Entity Framework Core for database access and SQL Server for data storage.
+RESTful API for the RaceDay system, built with ASP.NET Core Web API (.NET 10), Entity Framework Core (code-first) and SQL Server.
 
-## Technologies
+## Green Build
 
-- C#
-- ASP.NET Core Web API
-- .NET 10
-- Entity Framework Core
-- SQL Server
-- GitHub Actions for continuous integration
+![Green build](docs/green-build.png)
 
-## Prerequisites
+## Features
 
-Before running the application, install:
+- Register and log in as an **Organiser** or a **Participant** (passwords hashed with BCrypt)
+- Session-based authentication, with role checks on every protected endpoint
+- Profile: view and update your own details
+- Events: Organisers create, update and delete; everyone can view
+- Categories: Organisers define categories per event; everyone can view
+- Enrolments: Participants enrol with a category; Organisers view enrolments for their events
+- Results: Organisers capture finish times and positions; Participants view their own
+- Swagger UI to view and test all endpoints
 
-- .NET 10 SDK
-- Visual Studio 2022 or a compatible IDE
-- SQL Server / SQL Server LocalDB
-- Git
+## Project structure
 
-## Getting Started
+- `RaceDay.Api/` - the API (Controllers, Models, Dtos, Security, Migrations)
+- `RaceDayTests/` - unit tests (xUnit, in-memory database)
+- `.github/workflows/ci.yml` - GitHub Actions: builds and runs all tests on every push
 
-### 1. Clone the repository
+## Running locally
 
-```bash
-git clone https://github.com/SinoMkosi/RaceDay.Api.git
-cd RaceDay.Api
-```
+1. Clone the repo and open `RaceDay.Api/RaceDay.Api.slnx` in Visual Studio.
+2. The connection string in `appsettings.json` uses SQL Server LocalDB. Change it if needed.
+3. Create the database: Tools > NuGet Package Manager > Package Manager Console, then run `Update-Database`.
+4. Press the green play button and open `/swagger` on the URL shown in your launch settings.
 
-### 2. Restore dependencies
+## Running the tests
 
-```bash
-dotnet restore
-```
-
-If running from the solution directory, you can specify the solution file:
-
-```bash
-dotnet restore RaceDay.Api.slnx
-```
-
-### 3. Configure the database
-
-Check `appsettings.json` and `appsettings.Development.json` for the database connection string.
-
-Update the connection string to match your local SQL Server configuration. Do not commit passwords or other secrets to GitHub.
-
-### 4. Apply database migrations
-
-Once the database connection is configured, apply the Entity Framework Core migrations using the appropriate EF Core tooling.
-
-### 5. Run the API
-
-```bash
-dotnet run
-```
-
-Alternatively, open the solution in Visual Studio, set the API project as the startup project, and press **F5**.
-
-### 6. Test the API
-
-Use the configured local URL to access the API. If Swagger is enabled in the development environment, open the Swagger UI to explore and test the available endpoints.
-
-## Continuous Integration
-
-GitHub Actions is configured to restore dependencies and build the solution when changes are pushed to the configured branches or a pull request is opened.
-
-Workflow file: `.github/workflows/dotnet.yml`
-
-## Project Structure
-
-- `Controllers/` — API endpoints
-- `Models/` — data models
-- `Migrations/` — Entity Framework Core database migrations
-- `AppDbContext.cs` — database context
-- `Program.cs` — application entry point
-- `Security/` — security-related code
+Run `dotnet test RaceDay.Api/RaceDay.Api.slnx` from the repo root, or use Test Explorer in Visual Studio.
 
 ## Author
 
