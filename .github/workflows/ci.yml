@@ -1,0 +1,23 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build RaceDay.Api/RaceDay.Api.slnx
+
+      - name: Run tests
+        run: dotnet test RaceDay.Api/RaceDay.Api.slnx --no-build
